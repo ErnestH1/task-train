@@ -1,13 +1,13 @@
 class TodosController < ApplicationController
     before_action :verify_auth
 
-    def create
+    def create 
         todo = user.todos.create(todo_params)
         if todo.valid?
             app_response(status: :created, data: todo)
-        else
+        else 
             app_response(status: :unprocessable_entity, data: todo.errors, message: 'failed')
-        end
+        end 
     end
 
     def update
@@ -21,18 +21,18 @@ class TodosController < ApplicationController
 
     def destroy
         user.todos.find(params[:id]).destroy
-        app_response(message: 'success', data: { info: 'deleted todo successfully' }, status: 204)
+        app_response(message: 'success', data: { info: 'deleted todo successfully'  }, status: 204)
     end
 
     def index
         todos = user.todos.all
-        app_response(message: 'success', data: todos)
+        app_response(message: 'success', data:  todos)
     end
 
-    private
+    private  
 
-    def todo_params
-        params.permit(:title, :description, :status, :priority)
+    def todo_params 
+        params.permit(:title, :description,  :status, :priority)
     end
 
 end
