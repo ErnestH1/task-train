@@ -31,7 +31,7 @@ class ApplicationController < ActionController::API
     def decode(token)
         begin
             JWT.decode(token, ENV['task_train_key'], true, { algorithm: 'HS256' })
-        rescue JWT::DecodeError => e
+        rescue JWT::DecodeError => e 
             app_response(message: 'failed', status: 401, data: { info: 'Your session has expired. Please login again to continue' }) 
         end
     end
@@ -44,6 +44,7 @@ class ApplicationController < ActionController::API
         else
             token = auth_headers.split(' ')[1]
             save_user_id(token)
+
         end
     end
 
@@ -57,6 +58,7 @@ class ApplicationController < ActionController::API
     def remove_user
         session.delete(:uid)
         session[:expiry] = Time.now
+
     end
 
     # check for session expiry
@@ -65,6 +67,7 @@ class ApplicationController < ActionController::API
         time_diff = (Time.parse(session[:expiry]) - Time.now).to_i
         unless time_diff > 0
             app_response(message: 'failed', status: 401, data: { info: 'Your session has expired. Please login again to continue' })
+
         end
     end
 
