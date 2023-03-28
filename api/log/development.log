@@ -783,3 +783,165 @@ Processing by TodosController#create as */*
 Completed 201 Created in 89ms (Views: 0.5ms | ActiveRecord: 11.2ms | Allocations: 24837)
 
 
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started POST "/users" for 127.0.0.1 at 2023-03-28 10:31:42 +0300
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#register as */*
+  Parameters: {"username"=>"Ernest", "email"=>"mail@mail.com", "password"=>"[FILTERED]", "user"=>{"username"=>"Ernest", "email"=>"mail@mail.com"}}
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: register, request: #<ActionDispatch::Request:0x00007fc21caab0a0>, params: {"username"=>"Ernest", "email"=>"mail@mail.com", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"register", "user"=>{"username"=>"Ernest", "email"=>"mail@mail.com"}} }[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/users_controller.rb:6:in `register'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? LIMIT ?[0m  [["username", "Ernest"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `register'
+  [1m[36mUser Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "mail@mail.com"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `register'
+  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)[0m  [["username", "Ernest"], ["email", "mail@mail.com"], ["password_digest", "[FILTERED]"], ["created_at", "2023-03-28 07:31:43.069856"], ["updated_at", "2023-03-28 07:31:43.069856"]]
+  ↳ app/controllers/users_controller.rb:6:in `register'
+  [1m[36mTRANSACTION (11.0ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/users_controller.rb:6:in `register'
+  [1m[36mUser Exists? (0.5ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."username" = ? AND "users"."id" != ? LIMIT ?[0m  [["username", "Ernest"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `register'
+  [1m[36mUser Exists? (0.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = ? AND "users"."id" != ? LIMIT ?[0m  [["email", "mail@mail.com"], ["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `register'
+Completed 201 Created in 482ms (Views: 1.2ms | ActiveRecord: 15.8ms | Allocations: 42926)
+
+
+Started POST "/users/login" for 127.0.0.1 at 2023-03-28 10:31:51 +0300
+Processing by UsersController#login as */*
+  Parameters: {"email"=>"mail@mail.com", "password"=>"[FILTERED]", "user"=>{"email"=>"mail@mail.com"}}
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: login, request: #<ActionDispatch::Request:0x00007fc210024d18>, params: {"email"=>"mail@mail.com", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"login", "user"=>{"email"=>"mail@mail.com"}} }[0m
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: login, request: #<ActionDispatch::Request:0x00007fc210024d18>, params: {"email"=>"mail@mail.com", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"login", "user"=>{"email"=>"mail@mail.com"}} }[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE (username = NULL OR email = 'mail@mail.com') ORDER BY "users"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:28:in `login'
+[31mUnpermitted parameter: :user. Context: { controller: UsersController, action: login, request: #<ActionDispatch::Request:0x00007fc210024d18>, params: {"email"=>"mail@mail.com", "password"=>"[FILTERED]", "controller"=>"users", "action"=>"login", "user"=>{"email"=>"mail@mail.com"}} }[0m
+Completed 200 OK in 388ms (Views: 0.9ms | ActiveRecord: 0.5ms | Allocations: 1595)
+
+
+Started POST "/todos" for 127.0.0.1 at 2023-03-28 10:32:01 +0300
+Processing by TodosController#create as */*
+  Parameters: {"title"=>"Word Count", "description"=>"we can implement the logic for checking if a book has been read by a user", "priority"=>"HIGH", "todo"=>{"title"=>"Word Count", "description"=>"we can implement the logic for checking if a book has been read by a user", "priority"=>"HIGH"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+[31mUnpermitted parameter: :todo. Context: { controller: TodosController, action: create, request: #<ActionDispatch::Request:0x00007fc2080093e0>, params: {"title"=>"Word Count", "description"=>"we can implement the logic for checking if a book has been read by a user", "priority"=>"HIGH", "controller"=>"todos", "action"=>"create", "todo"=>{"title"=>"Word Count", "description"=>"we can implement the logic for checking if a book has been read by a user", "priority"=>"HIGH"}} }[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:6:in `create'
+  [1m[36mTodo Create (0.8ms)[0m  [1m[32mINSERT INTO "todos" ("title", "description", "status", "priority", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["title", "Word Count"], ["description", "we can implement the logic for checking if a book has been read by a user"], ["status", 0], ["priority", 2], ["user_id", 3], ["created_at", "2023-03-28 07:32:01.388988"], ["updated_at", "2023-03-28 07:32:01.388988"]]
+  ↳ app/controllers/todos_controller.rb:6:in `create'
+  [1m[36mTRANSACTION (5.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:6:in `create'
+Completed 201 Created in 137ms (Views: 1.2ms | ActiveRecord: 46.4ms | Allocations: 24595)
+
+
+Started PUT "/todos/1" for 127.0.0.1 at 2023-03-28 10:33:20 +0300
+Processing by TodosController#update as */*
+  Parameters: {"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH", "id"=>"1", "todo"=>{"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ? AND "todos"."id" = ? LIMIT ?[0m  [["user_id", 3], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:19:in `update'
+Completed 422 Unprocessable Entity in 11ms (Views: 0.5ms | ActiveRecord: 0.7ms | Allocations: 1493)
+
+
+Started GET "/todos" for 127.0.0.1 at 2023-03-28 10:33:36 +0300
+Processing by TodosController#index as */*
+  Parameters: {"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH", "todo"=>{"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ?[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:7:in `app_response'
+Completed 200 OK in 13ms (Views: 5.0ms | ActiveRecord: 0.9ms | Allocations: 1791)
+
+
+Started PUT "/todos/4" for 127.0.0.1 at 2023-03-28 10:33:49 +0300
+Processing by TodosController#update as */*
+  Parameters: {"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH", "id"=>"4", "todo"=>{"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ? AND "todos"."id" = ? LIMIT ?[0m  [["user_id", 3], ["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:19:in `update'
+[31mUnpermitted parameters: :id, :todo. Context: { controller: TodosController, action: update, request: #<ActionDispatch::Request:0x00007fc228d1bc48>, params: {"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH", "controller"=>"todos", "action"=>"update", "id"=>"4", "todo"=>{"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH"}} }[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:19:in `update'
+  [1m[36mTodo Update (1.0ms)[0m  [1m[33mUPDATE "todos" SET "description" = ?, "updated_at" = ? WHERE "todos"."id" = ?[0m  [["description", "The logic for checking if a book has been read by a user"], ["updated_at", "2023-03-28 07:33:49.385200"], ["id", 4]]
+  ↳ app/controllers/todos_controller.rb:19:in `update'
+  [1m[36mTRANSACTION (8.9ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:19:in `update'
+Completed 200 OK in 34ms (Views: 0.6ms | ActiveRecord: 11.1ms | Allocations: 3278)
+
+
+Started GET "/todos" for 127.0.0.1 at 2023-03-28 10:34:18 +0300
+Processing by TodosController#index as */*
+  Parameters: {"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH", "todo"=>{"title"=>"Word Count", "description"=>"The logic for checking if a book has been read by a user", "priority"=>"HIGH"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ?[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:7:in `app_response'
+Completed 200 OK in 11ms (Views: 4.4ms | ActiveRecord: 0.6ms | Allocations: 1538)
+
+
+Started POST "/todos" for 127.0.0.1 at 2023-03-28 10:34:58 +0300
+Processing by TodosController#create as */*
+  Parameters: {"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW", "todo"=>{"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+[31mUnpermitted parameter: :todo. Context: { controller: TodosController, action: create, request: #<ActionDispatch::Request:0x00007fc228ce32f8>, params: {"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW", "controller"=>"todos", "action"=>"create", "todo"=>{"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW"}} }[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:6:in `create'
+  [1m[36mTodo Create (1.1ms)[0m  [1m[32mINSERT INTO "todos" ("title", "description", "status", "priority", "user_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["title", "Word Count"], ["description", "Logic for checking if a book has been read by a user"], ["status", 0], ["priority", 0], ["user_id", 3], ["created_at", "2023-03-28 07:34:58.930694"], ["updated_at", "2023-03-28 07:34:58.930694"]]
+  ↳ app/controllers/todos_controller.rb:6:in `create'
+  [1m[36mTRANSACTION (5.4ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:6:in `create'
+Completed 201 Created in 31ms (Views: 0.9ms | ActiveRecord: 7.0ms | Allocations: 2918)
+
+
+Started GET "/todos" for 127.0.0.1 at 2023-03-28 10:35:05 +0300
+Processing by TodosController#index as */*
+  Parameters: {"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW", "todo"=>{"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ?[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:7:in `app_response'
+Completed 200 OK in 13ms (Views: 5.7ms | ActiveRecord: 0.8ms | Allocations: 1687)
+
+
+Started DELETE "/todos/4" for 127.0.0.1 at 2023-03-28 10:35:23 +0300
+Processing by TodosController#destroy as */*
+  Parameters: {"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW", "id"=>"4", "todo"=>{"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+  [1m[36mTodo Load (0.3ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ? AND "todos"."id" = ? LIMIT ?[0m  [["user_id", 3], ["id", 4], ["LIMIT", 1]]
+  ↳ app/controllers/todos_controller.rb:31:in `destroy'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mbegin transaction[0m
+  ↳ app/controllers/todos_controller.rb:31:in `destroy'
+  [1m[36mTodo Destroy (0.9ms)[0m  [1m[31mDELETE FROM "todos" WHERE "todos"."id" = ?[0m  [["id", 4]]
+  ↳ app/controllers/todos_controller.rb:31:in `destroy'
+  [1m[36mTRANSACTION (8.6ms)[0m  [1m[36mcommit transaction[0m
+  ↳ app/controllers/todos_controller.rb:31:in `destroy'
+Completed 204 No Content in 27ms (Views: 0.5ms | ActiveRecord: 10.2ms | Allocations: 2739)
+
+
+Started GET "/todos" for 127.0.0.1 at 2023-03-28 10:35:32 +0300
+Processing by TodosController#index as */*
+  Parameters: {"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW", "todo"=>{"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW"}}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:39:in `user'
+  [1m[36mTodo Load (0.5ms)[0m  [1m[34mSELECT "todos".* FROM "todos" WHERE "todos"."user_id" = ?[0m  [["user_id", 3]]
+  ↳ app/controllers/application_controller.rb:7:in `app_response'
+Completed 200 OK in 12ms (Views: 4.7ms | ActiveRecord: 0.9ms | Allocations: 1554)
+
+
+Started GET "/user/login/check" for 127.0.0.1 at 2023-03-28 10:36:04 +0300
+Processing by UsersController#check_login_status as */*
+  Parameters: {"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW", "user"=>{}}
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 297)
+
+
+Started DELETE "/users/logout" for 127.0.0.1 at 2023-03-28 10:37:00 +0300
+Processing by UsersController#logout as */*
+  Parameters: {"title"=>"Word Count", "description"=>"Logic for checking if a book has been read by a user", "priority"=>"LOW", "user"=>{}}
+Completed 200 OK in 2ms (Views: 0.5ms | ActiveRecord: 0.0ms | Allocations: 253)
+
+
