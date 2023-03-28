@@ -1,20 +1,23 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  #user
+  post '/users', to: 'users#register'
+  post '/users/login', to: 'users#login'
+  delete '/users/logout', to: 'users#logout'
 
-  # user
-  post '/users', to: 'users#register' 
-  post '/users/login', to: 'users#login'  
-  delete '/users/logout', to: 'users#logout' 
-  get '/user/login/check', to: 'users#check_login_status'
-
-  # todos
+  #todos
   post '/todos', to: 'todos#create'
-  put '/todos/:id', to: 'todos#update' 
-  delete '/todos/:id', to: 'todos#destroy' 
+
+  #update todos
+  put '/todos/:id', to: 'todos#update'
+  #delete todos
+  delete '/todos/:id', to: 'todos#destroy'
+  #view all todos
   get '/todos', to: 'todos#index'
 
-  # verify auth
-  get '/verify', to: 'application#verify_auth'
+
+
+  get '/user/login/check', to: 'users#check_login_status'
 
 end
